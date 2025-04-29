@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>My Movies</title>
+  <link rel="stylesheet" href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.min.css">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <h1> <%= user.username %>'s Movies</h1>
+
+  <form action="/movies" method="POST">
+    <input name="title" placeholder="Title" required />
+    <select name="status" required >
+      <option value="Seen It">Seen It</option>
+      <option value="Watch List">Watch List</option>
+    </select>
+    <input name="director" placeholder="Director" />
+    <input name="year" placeholder="Year" type="number" />
+    <input name="rating" placeholder="User Rating" />
+    <textarea name="review" placeholder="User Review"></textarea>
+    <button type="submit">Add Movie</button>
+  </form>
+
+  <hr/>
+
+  <% if (movies.length === 0) { %><!--check for 0 movies. Its wild this is just like javascript and html together. Not sure if this violates seperation of concerns tho-->
+    <p>No movies yet.</p>
+  <% } else { %>
+    <ul>
+      <% movies.forEach(movie => { %> <!--data-id stores the movie’s MongoDB _id in the HTML so you know which record to update -->
+        <li id="movie-<%= movie._id %>"><!--thiis should make the name clickable i hope to god this works -->
+            <h2><%= movie.title %></h2>
+            <p>Status: <%= movie.status %></p>
+            <p>Director: <%= movie.director %></p>
+            <p>year: <%= movie.year %></p>
+            <p>User rating: <%= movie.rating %></p>
+           <p>User review: <%= movie.review %></p>
+            <i class="fa fa-cog" data-id="<%= movie._id %>" aria-hidden="true"></i>
+      <i class="fa fa-trash-o" data-id="<%= movie._id %>" aria-hidden="true"></i>
+      <form class="editForm hidden" data-id="<%= movie._id %>">
+        <input name="title" value="<%= movie.title %>" required />
+        <input name="status" value="<%= movie.status %>" />
+        <input name="director" value="<%= movie.director %>" />
+        <input name="year" value="<%= movie.year %>" />
+        <input name="rating" value="<%= movie.rating %>" />
+        <textarea name="review"><%= movie.review %></textarea>
+        <button type="submit">Save</button>
+      </form>
+            
+        </li>
+        <hr/>
+      <% }) %>
+    </ul>
+  <% } %>
+
+  <a href="/dashboard">Back to Dashboard</a> | <a href="/logout">Logout</a>
+
+  <script src="main.js"></script>
+
+</body>
+</html>
