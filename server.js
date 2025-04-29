@@ -43,7 +43,7 @@ app.use(express.json())
 
 // required for passport
 app.use(session({
-  secret: process.env.SESSION_SECRET,// session secret
+  secret: "keyForMovieTracker", //process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
 }))
