@@ -1,4 +1,4 @@
-# Cinefiles 🎬
+# CineFiles 🎬
 
 Cinefiles is a full-stack web application for movie lovers to organize, track, and share their favorite films. Users can register, log in, and build their own personal film library with options to add, remove, and browse through titles.
 
