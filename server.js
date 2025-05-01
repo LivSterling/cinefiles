@@ -21,14 +21,14 @@ let db
 
 // configuration ===============================================================
 
-mongoose.connect(process.env.DB_STRING, {
+mongoose.connect(configDB.url, { 
     useNewUrlParser: true,
     useUnifiedTopology: true,
   })
   .then(() => {
     console.log('MongoDB connected')
-    app.listen(process.env.PORT, () => {
-      console.log(`The magic happens on port ${process.env.PORT}`)
+    app.listen(port, () => {
+      console.log(`The magic happens on port ${port}`)
     })
   })
   .catch(err => console.error(err))
@@ -43,7 +43,7 @@ app.use(express.json())
 
 // required for passport
 app.use(session({
-  secret: "keyForMovieTracker", //process.env.SESSION_SECRET,
+  secret: "keyForMovieTracker" || process.env.SESSION_SECRET,
   resave: false,
   saveUninitialized: true,
 }))
